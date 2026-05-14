@@ -1,0 +1,5 @@
+sqlalchemy==2.0.36
+langchain==0.3.19
+langchain-community==0.3.18
+langchain-openai==0.2.14
+openai==1.64.0

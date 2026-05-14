@@ -1,0 +1,1257 @@
+{
+  "summary": {
+    "total": 15,
+    "passed": 13,
+    "accuracy": 0.8667,
+    "result_completeness": 0.8667,
+    "avg_sql_query_count": 1,
+    "avg_latency_sec": 16.4791,
+    "query_efficiency": 1.0,
+    "latency_efficiency": 0.8704,
+    "avg_token_usage": 161.69230769230768,
+    "token_efficiency": 0.872,
+    "robust_accuracy": 0.9231
+  },
+  "results": [
+    {
+      "id": "avg_salary_engineering",
+      "question": "What is the average salary in Engineering?",
+      "gold_sql": "SELECT AVG(salary) FROM employees WHERE dept='Engineering';",
+      "gold_rows": [
+        [
+          32285.714286
+        ]
+      ],
+      "executed_sql": "SELECT AVG(salary) FROM employees WHERE dept = 'Engineering'",
+      "agent_rows": [
+        [
+          32285.714286
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 14.3507,
+      "sql_query_count": 1,
+      "token_usage": 147,
+      "prompt_tokens": 134,
+      "completion_tokens": 13,
+      "sql_logs": [
+        "SELECT AVG(salary) FROM employees WHERE dept = 'Engineering'"
+      ],
+      "agent_output": "The average salary in Engineering is $32,285.71.",
+      "notes": "",
+      "error": null
+    },
+    {
+      "id": "highest_salary",
+      "question": "Who earns the highest salary?",
+      "gold_sql": "SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 1;",
+      "gold_rows": [
+        [
+          "Alexander Lewis",
+          40000
+        ]
+      ],
+      "executed_sql": null,
+      "agent_rows": [
+        [
+          "Alexander Lewis"
+        ]
+      ],
+      "passed": false,
+      "completeness": 0.0,
+      "latency_sec": 14.4307,
+      "sql_query_count": 1,
+      "token_usage": 144,
+      "prompt_tokens": 133,
+      "completion_tokens": 11,
+      "sql_logs": [
+        "SELECT name FROM employees ORDER BY salary DESC LIMIT 1"
+      ],
+      "agent_output": "Alexander Lewis earns the highest salary.",
+      "notes": "",
+      "error": "No matching SELECT found in agent SQL logs."
+    },
+    {
+      "id": "salary_gt_25000_desc",
+      "question": "List employees with salary > 25000 ordered by salary descending.",
+      "gold_sql": "SELECT name, salary FROM employees WHERE salary > 25000 ORDER BY salary DESC;",
+      "gold_rows": [
+        [
+          "Alexander Lewis",
+          40000
+        ],
+        [
+          "Daniel Anderson",
+          38000
+        ],
+        [
+          "Evelyn Rodriguez",
+          35000
+        ],
+        [
+          "John Smith",
+          32000
+        ],
+        [
+          "Benjamin Harris",
+          31000
+        ],
+        [
+          "James Thomas",
+          30000
+        ],
+        [
+          "Henry Clark",
+          29000
+        ],
+        [
+          "Michael Brown",
+          28000
+        ],
+        [
+          "William Jackson",
+          27000
+        ],
+        [
+          "Alice Johnson",
+          26000
+        ],
+        [
+          "Harper Lee",
+          26000
+        ]
+      ],
+      "executed_sql": "SELECT name, dept, title, salary FROM employees WHERE salary > 25000 ORDER BY salary DESC",
+      "agent_rows": [
+        [
+          "Alexander Lewis",
+          40000
+        ],
+        [
+          "Daniel Anderson",
+          38000
+        ],
+        [
+          "Evelyn Rodriguez",
+          35000
+        ],
+        [
+          "John Smith",
+          32000
+        ],
+        [
+          "Benjamin Harris",
+          31000
+        ],
+        [
+          "James Thomas",
+          30000
+        ],
+        [
+          "Henry Clark",
+          29000
+        ],
+        [
+          "Michael Brown",
+          28000
+        ],
+        [
+          "William Jackson",
+          27000
+        ],
+        [
+          "Alice Johnson",
+          26000
+        ],
+        [
+          "Harper Lee",
+          26000
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 19.7715,
+      "sql_query_count": 1,
+      "token_usage": 168,
+      "prompt_tokens": 145,
+      "completion_tokens": 23,
+      "sql_logs": [
+        "SELECT name, dept, title, salary FROM employees WHERE salary > 25000 ORDER BY salary DESC"
+      ],
+      "agent_output": "Here are the employees with salary > 25000, ordered by salary in descending order:\n\n1. Alexander Lewis (Engineering, Software Architect) - $40,000\n2. Daniel Anderson (Engineering, Tech Lead) - $38,000\n3. Evelyn Rodriguez (Finance, Controller) - $35,000\n4. John Smith (Engineering, ML Engineer) - $32,000\n5. Benjamin Harris (Engineering, DevOps Engineer) - $31,000\n6. James Thomas (Engineering, Data Engineer) - $30,000\n7. Henry Clark (Engineering, Frontend Engineer) - $29,000\n8. Michael Brown (Product, Product Manager) - $28,000\n9. William Jackson (Finance, Financial Analyst) - $27,000\n10. Alice Johnson (Engineering, Backend Engineer) - $26,000\n11. Harper Lee (HR, HR Manager) - $26,000",
+      "notes": "",
+      "error": null
+    },
+    {
+      "id": "count_by_dept",
+      "question": "How many employees are in each department?",
+      "gold_sql": "SELECT dept, COUNT(*) FROM employees GROUP BY dept ORDER BY dept;",
+      "gold_rows": [
+        [
+          "Engineering",
+          7
+        ],
+        [
+          "Finance",
+          3
+        ],
+        [
+          "HR",
+          3
+        ],
+        [
+          "Marketing",
+          2
+        ],
+        [
+          "Product",
+          2
+        ],
+        [
+          "Sales",
+          3
+        ]
+      ],
+      "executed_sql": "SELECT dept, COUNT(*) as employee_count FROM employees GROUP BY dept",
+      "agent_rows": [
+        [
+          "Engineering",
+          7
+        ],
+        [
+          "Finance",
+          3
+        ],
+        [
+          "HR",
+          3
+        ],
+        [
+          "Marketing",
+          2
+        ],
+        [
+          "Product",
+          2
+        ],
+        [
+          "Sales",
+          3
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 15.5347,
+      "sql_query_count": 1,
+      "token_usage": 148,
+      "prompt_tokens": 135,
+      "completion_tokens": 13,
+      "sql_logs": [
+        "SELECT dept, COUNT(*) as employee_count FROM employees GROUP BY dept"
+      ],
+      "agent_output": "There are:\n- 7 employees in the Engineering department\n- 3 employees in the Finance department\n- 3 employees in the HR department\n- 2 employees in the Marketing department\n- 2 employees in the Product department\n- 3 employees in the Sales department",
+      "notes": "",
+      "error": null
+    },
+    {
+      "id": "top2_engineering",
+      "question": "Top 2 highest paid people in Engineering (name + salary).",
+      "gold_sql": "SELECT name, salary FROM employees WHERE dept='Engineering' ORDER BY salary DESC LIMIT 2;",
+      "gold_rows": [
+        [
+          "Alexander Lewis",
+          40000
+        ],
+        [
+          "Daniel Anderson",
+          38000
+        ]
+      ],
+      "executed_sql": "SELECT name, salary FROM employees WHERE dept = 'Engineering' ORDER BY salary DESC LIMIT 2",
+      "agent_rows": [
+        [
+          "Alexander Lewis",
+          40000
+        ],
+        [
+          "Daniel Anderson",
+          38000
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 16.4199,
+      "sql_query_count": 1,
+      "token_usage": 160,
+      "prompt_tokens": 141,
+      "completion_tokens": 19,
+      "sql_logs": [
+        "SELECT name, salary FROM employees WHERE dept = 'Engineering' ORDER BY salary DESC LIMIT 2"
+      ],
+      "agent_output": "The top 2 highest paid people in Engineering are:\n- Alexander Lewis with a salary of $40,000\n- Daniel Anderson with a salary of $38,000",
+      "notes": "",
+      "error": null
+    },
+    {
+      "id": "min_salary",
+      "question": "Who has the lowest salary?",
+      "gold_sql": "SELECT name, salary FROM employees ORDER BY salary ASC LIMIT 1;",
+      "gold_rows": [
+        [
+          "Olivia Taylor",
+          16000
+        ]
+      ],
+      "executed_sql": null,
+      "agent_rows": [
+        [
+          "Olivia Taylor"
+        ]
+      ],
+      "passed": false,
+      "completeness": 0.0,
+      "latency_sec": 13.6751,
+      "sql_query_count": 1,
+      "token_usage": 144,
+      "prompt_tokens": 133,
+      "completion_tokens": 11,
+      "sql_logs": [
+        "SELECT name FROM employees ORDER BY salary ASC LIMIT 1"
+      ],
+      "agent_output": "Olivia Taylor has the lowest salary.",
+      "notes": "",
+      "error": "No matching SELECT found in agent SQL logs."
+    },
+    {
+      "id": "dept_avg_salary_desc",
+      "question": "Show average salary per department, from highest to lowest.",
+      "gold_sql": "SELECT dept, AVG(salary) AS avg_salary FROM employees GROUP BY dept ORDER BY avg_salary DESC;",
+      "gold_rows": [
+        [
+          "Engineering",
+          32285.714286
+        ],
+        [
+          "Finance",
+          27333.333333
+        ],
+        [
+          "Product",
+          26500.0
+        ],
+        [
+          "Marketing",
+          21500.0
+        ],
+        [
+          "Sales",
+          21000.0
+        ],
+        [
+          "HR",
+          21000.0
+        ]
+      ],
+      "executed_sql": "SELECT dept, AVG(salary) as avg_salary FROM employees GROUP BY dept ORDER BY avg_salary DESC",
+      "agent_rows": [
+        [
+          "Engineering",
+          32285.714286
+        ],
+        [
+          "Finance",
+          27333.333333
+        ],
+        [
+          "Product",
+          26500.0
+        ],
+        [
+          "Marketing",
+          21500.0
+        ],
+        [
+          "Sales",
+          21000.0
+        ],
+        [
+          "HR",
+          21000.0
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 16.5262,
+      "sql_query_count": 1,
+      "token_usage": 162,
+      "prompt_tokens": 142,
+      "completion_tokens": 20,
+      "sql_logs": [
+        "SELECT dept, AVG(salary) as avg_salary FROM employees GROUP BY dept ORDER BY avg_salary DESC"
+      ],
+      "agent_output": "The average salary per department, ordered from highest to lowest, is:\n\n- Engineering: $32,285.71\n- Finance: $27,333.33\n- Product: $26,500.00\n- Marketing: $21,500.00\n- Sales: $21,000.00\n- HR: $21,000.00",
+      "notes": "",
+      "error": null
+    },
+    {
+      "id": "marketing_titles",
+      "question": "List all job titles in Marketing.",
+      "gold_sql": "SELECT title FROM employees WHERE dept='Marketing' ORDER BY title;",
+      "gold_rows": [
+        [
+          "Content Strategist"
+        ],
+        [
+          "Marketing Specialist"
+        ]
+      ],
+      "executed_sql": "SELECT title FROM employees WHERE dept = 'Marketing';",
+      "agent_rows": [
+        [
+          "Marketing Specialist"
+        ],
+        [
+          "Content Strategist"
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 10.5219,
+      "sql_query_count": 1,
+      "token_usage": 0,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "sql_logs": [
+        "SELECT title FROM employees WHERE dept = 'Marketing';"
+      ],
+      "agent_output": "The job titles in the Marketing department are:\n\n- Marketing Specialist\n- Content Strategist",
+      "notes": "",
+      "error": null
+    },
+    {
+      "id": "people_named_ends_with_son",
+      "question": "List employees whose name ends with 'son'.",
+      "gold_sql": "SELECT name FROM employees WHERE name LIKE '%son' ORDER BY name;",
+      "gold_rows": [
+        [
+          "Alice Johnson"
+        ],
+        [
+          "Daniel Anderson"
+        ],
+        [
+          "David Wilson"
+        ],
+        [
+          "Lucas Thompson"
+        ],
+        [
+          "William Jackson"
+        ]
+      ],
+      "executed_sql": "SELECT name FROM employees WHERE name LIKE '%son'",
+      "agent_rows": [
+        [
+          "Alice Johnson"
+        ],
+        [
+          "David Wilson"
+        ],
+        [
+          "Daniel Anderson"
+        ],
+        [
+          "William Jackson"
+        ],
+        [
+          "Lucas Thompson"
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 14.9946,
+      "sql_query_count": 1,
+      "token_usage": 141,
+      "prompt_tokens": 131,
+      "completion_tokens": 10,
+      "sql_logs": [
+        "SELECT name FROM employees WHERE name LIKE '%son'"
+      ],
+      "agent_output": "The employees whose names end with 'son' are:\n- Alice Johnson\n- David Wilson\n- Daniel Anderson\n- William Jackson\n- Lucas Thompson",
+      "notes": "",
+      "error": null
+    },
+    {
+      "id": "no_result_edge",
+      "question": "List employees with salary > 100000.",
+      "gold_sql": "SELECT name, salary FROM employees WHERE salary > 100000;",
+      "gold_rows": [],
+      "executed_sql": "SELECT name, dept, title, salary FROM employees WHERE salary > 100000",
+      "agent_rows": [],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 16.7355,
+      "sql_query_count": 1,
+      "token_usage": 162,
+      "prompt_tokens": 142,
+      "completion_tokens": 20,
+      "sql_logs": [
+        "SELECT name, dept, title, salary FROM employees WHERE salary > 100000"
+      ],
+      "agent_output": "The query executed successfully but returned no results. This means there are no employees in the database with a salary greater than 100000.\n\nBased on the sample data provided in the schema, the highest salary shown is 32000 (for John Smith), which is well below 100000. Therefore, there are no employees meeting the criteria of having a salary > 100000.\n\nAnswer: There are no employees with a salary greater than 100000.",
+      "notes": "edge: empty result",
+      "error": null
+    },
+    {
+      "id": "not_engineering",
+      "question": "List employees who do not work in Engineering.",
+      "gold_sql": "\n        SELECT name\n        FROM employees\n        WHERE dept != 'Engineering'\n        ORDER BY name;\n        ",
+      "gold_rows": [
+        [
+          "Amelia Garcia"
+        ],
+        [
+          "Charlotte Martin"
+        ],
+        [
+          "David Wilson"
+        ],
+        [
+          "Emily Davis"
+        ],
+        [
+          "Evelyn Rodriguez"
+        ],
+        [
+          "Harper Lee"
+        ],
+        [
+          "Isabella Moore"
+        ],
+        [
+          "Lucas Thompson"
+        ],
+        [
+          "Mia White"
+        ],
+        [
+          "Michael Brown"
+        ],
+        [
+          "Olivia Taylor"
+        ],
+        [
+          "Sophia Martinez"
+        ],
+        [
+          "William Jackson"
+        ]
+      ],
+      "executed_sql": "SELECT name, dept, title, salary FROM employees WHERE dept != 'Engineering'",
+      "agent_rows": [
+        [
+          "Michael Brown"
+        ],
+        [
+          "Emily Davis"
+        ],
+        [
+          "David Wilson"
+        ],
+        [
+          "Sophia Martinez"
+        ],
+        [
+          "Olivia Taylor"
+        ],
+        [
+          "Isabella Moore"
+        ],
+        [
+          "William Jackson"
+        ],
+        [
+          "Mia White"
+        ],
+        [
+          "Charlotte Martin"
+        ],
+        [
+          "Lucas Thompson"
+        ],
+        [
+          "Amelia Garcia"
+        ],
+        [
+          "Evelyn Rodriguez"
+        ],
+        [
+          "Harper Lee"
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 16.2479,
+      "sql_query_count": 1,
+      "token_usage": 0,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "sql_logs": [
+        "SELECT name, dept, title, salary FROM employees WHERE dept != 'Engineering'"
+      ],
+      "agent_output": "Here are the employees who do not work in Engineering:\n\n- Michael Brown (Product, Product Manager, $28,000)\n- Emily Davis (Sales, Sales Manager, $24,000)\n- David Wilson (HR, HR Business Partner, $18,000)\n- Sophia Martinez (Finance, Accountant, $20,000)\n- Olivia Taylor (Sales, Sales Representative, $16,000)\n- Isabella Moore (Marketing, Marketing Specialist, $22,000)\n- William Jackson (Finance, Financial Analyst, $27,000)\n- Mia White (HR, Recruiter, $19,000)\n- Charlotte Martin (Product, UX Designer, $25,000)\n- Lucas Thompson (Sales, Account Executive, $23,000)\n- Amelia Garcia (Marketing, Content Strategist, $21,000)\n- Evelyn Rodriguez (Finance, Controller, $35,000)\n- Harper Lee (HR, HR Manager, $26,000)",
+      "notes": "",
+      "error": null
+    },
+    {
+      "id": "engineering_or_high_salary",
+      "question": "List employees who work in Engineering or earn more than 35000.",
+      "gold_sql": "\n        SELECT name\n        FROM employees\n        WHERE dept='Engineering'\n        OR salary > 35000\n        ORDER BY name;\n        ",
+      "gold_rows": [
+        [
+          "Alexander Lewis"
+        ],
+        [
+          "Alice Johnson"
+        ],
+        [
+          "Benjamin Harris"
+        ],
+        [
+          "Daniel Anderson"
+        ],
+        [
+          "Henry Clark"
+        ],
+        [
+          "James Thomas"
+        ],
+        [
+          "John Smith"
+        ]
+      ],
+      "executed_sql": "SELECT name, dept, salary FROM employees WHERE dept = 'Engineering' OR salary > 35000",
+      "agent_rows": [
+        [
+          "John Smith"
+        ],
+        [
+          "Alice Johnson"
+        ],
+        [
+          "Daniel Anderson"
+        ],
+        [
+          "James Thomas"
+        ],
+        [
+          "Benjamin Harris"
+        ],
+        [
+          "Henry Clark"
+        ],
+        [
+          "Alexander Lewis"
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 19.8791,
+      "sql_query_count": 1,
+      "token_usage": 168,
+      "prompt_tokens": 145,
+      "completion_tokens": 23,
+      "sql_logs": [
+        "SELECT name, dept, salary FROM employees WHERE dept = 'Engineering' OR salary > 35000"
+      ],
+      "agent_output": "The query returned 7 employees who either work in Engineering or earn more than $35,000. Here are the results:\n\n- John Smith (Engineering, $32,000)\n- Alice Johnson (Engineering, $26,000)\n- Daniel Anderson (Engineering, $38,000)\n- James Thomas (Engineering, $30,000)\n- Benjamin Harris (Engineering, $31,000)\n- Henry Clark (Engineering, $29,000)\n- Alexander Lewis (Engineering, $40,000)\n\nNote: All these employees work in Engineering, and among them, Daniel Anderson ($38,000) and Alexander Lewis ($40,000) earn more than $35,000.",
+      "notes": "",
+      "error": null
+    },
+    {
+      "id": "dept_above_company_avg",
+      "question": "Which departments have an average salary higher than the company average?",
+      "gold_sql": "\n        SELECT dept\n        FROM employees\n        GROUP BY dept\n        HAVING AVG(salary) >\n        (\n            SELECT AVG(salary)\n            FROM employees\n        );\n        ",
+      "gold_rows": [
+        [
+          "Engineering"
+        ],
+        [
+          "Finance"
+        ]
+      ],
+      "executed_sql": "SELECT dept, AVG(salary) as avg_dept_salary FROM employees GROUP BY dept HAVING AVG(salary) > (SELECT AVG(salary) FROM employees)",
+      "agent_rows": [
+        [
+          "Engineering"
+        ],
+        [
+          "Finance"
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 18.1291,
+      "sql_query_count": 1,
+      "token_usage": 185,
+      "prompt_tokens": 153,
+      "completion_tokens": 32,
+      "sql_logs": [
+        "SELECT dept, AVG(salary) as avg_dept_salary FROM employees GROUP BY dept HAVING AVG(salary) > (SELECT AVG(salary) FROM employees)"
+      ],
+      "agent_output": "The departments with an average salary higher than the company average are:\n\n- Engineering (average salary: $32,285.71)\n- Finance (average salary: $27,333.33)\n\nThese departments have average salaries that exceed the overall company average salary.",
+      "notes": "",
+      "error": null
+    },
+    {
+      "id": "highest_paid_per_dept",
+      "question": "List the highest paid employee in each department.",
+      "gold_sql": "\n        SELECT name, dept, salary\n        FROM employees e\n        WHERE salary =\n        (\n            SELECT MAX(salary)\n            FROM employees\n            WHERE dept = e.dept\n        )\n        ORDER BY dept;\n        ",
+      "gold_rows": [
+        [
+          "Alexander Lewis",
+          "Engineering",
+          40000
+        ],
+        [
+          "Evelyn Rodriguez",
+          "Finance",
+          35000
+        ],
+        [
+          "Harper Lee",
+          "HR",
+          26000
+        ],
+        [
+          "Isabella Moore",
+          "Marketing",
+          22000
+        ],
+        [
+          "Michael Brown",
+          "Product",
+          28000
+        ],
+        [
+          "Emily Davis",
+          "Sales",
+          24000
+        ]
+      ],
+      "executed_sql": "SELECT e1.dept, e1.name, e1.salary FROM employees e1 WHERE e1.salary = (SELECT MAX(e2.salary) FROM employees e2 WHERE e2.dept = e1.dept) ORDER BY e1.dept;",
+      "agent_rows": [
+        [
+          "Alexander Lewis",
+          "Engineering",
+          40000
+        ],
+        [
+          "Evelyn Rodriguez",
+          "Finance",
+          35000
+        ],
+        [
+          "Harper Lee",
+          "HR",
+          26000
+        ],
+        [
+          "Isabella Moore",
+          "Marketing",
+          22000
+        ],
+        [
+          "Michael Brown",
+          "Product",
+          28000
+        ],
+        [
+          "Emily Davis",
+          "Sales",
+          24000
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 19.2666,
+      "sql_query_count": 1,
+      "token_usage": 223,
+      "prompt_tokens": 172,
+      "completion_tokens": 51,
+      "sql_logs": [
+        "SELECT e1.dept, e1.name, e1.salary FROM employees e1 WHERE e1.salary = (SELECT MAX(e2.salary) FROM employees e2 WHERE e2.dept = e1.dept) ORDER BY e1.dept;"
+      ],
+      "agent_output": "The highest paid employee in each department is:\n\n- Engineering: Alexander Lewis ($40,000)\n- Finance: Evelyn Rodriguez ($35,000)\n- HR: Harper Lee ($26,000)\n- Marketing: Isabella Moore ($22,000)\n- Product: Michael Brown ($28,000)\n- Sales: Emily Davis ($24,000)",
+      "notes": "",
+      "error": null
+    },
+    {
+      "id": "dept_more_than_two",
+      "question": "Which departments have more than two employees?",
+      "gold_sql": "\n        SELECT dept\n        FROM employees\n        GROUP BY dept\n        HAVING COUNT(*) > 2\n        ORDER BY dept;\n        ",
+      "gold_rows": [
+        [
+          "Engineering"
+        ],
+        [
+          "Finance"
+        ],
+        [
+          "HR"
+        ],
+        [
+          "Sales"
+        ]
+      ],
+      "executed_sql": "SELECT dept FROM employees GROUP BY dept HAVING COUNT(*) > 2",
+      "agent_rows": [
+        [
+          "Engineering"
+        ],
+        [
+          "Finance"
+        ],
+        [
+          "HR"
+        ],
+        [
+          "Sales"
+        ]
+      ],
+      "passed": true,
+      "completeness": 1.0,
+      "latency_sec": 15.8506,
+      "sql_query_count": 1,
+      "token_usage": 150,
+      "prompt_tokens": 136,
+      "completion_tokens": 14,
+      "sql_logs": [
+        "SELECT dept FROM employees GROUP BY dept HAVING COUNT(*) > 2"
+      ],
+      "agent_output": "The query executed successfully and returned the departments that have more than two employees: Engineering, Finance, HR, and Sales.\n\nTherefore, the departments with more than two employees are:\n- Engineering\n- Finance\n- HR\n- Sales",
+      "notes": "",
+      "error": null
+    }
+  ],
+  "robust_results": [
+    {
+      "id": "avg_salary_engineering",
+      "original_question": "What is the average salary in Engineering?",
+      "noisy_question": "Wht is the average salary in Engineering?",
+      "executed_sql": "SELECT AVG(salary) FROM employees WHERE dept = 'Engineering'",
+      "agent_rows": [
+        [
+          32285.714286
+        ]
+      ],
+      "passed": true,
+      "sql_logs": [
+        "SELECT AVG(salary) FROM employees WHERE dept = 'Engineering'"
+      ],
+      "agent_output": "The average salary in Engineering is $32,285.71.",
+      "error": null
+    },
+    {
+      "id": "highest_salary",
+      "original_question": "Who earns the highest salary?",
+      "noisy_question": "Who earns the highest salayr?",
+      "executed_sql": null,
+      "agent_rows": null,
+      "passed": false,
+      "sql_logs": [
+        "SELECT name FROM employees ORDER BY salary DESC LIMIT 1"
+      ],
+      "agent_output": "Alexander Lewis earns the highest salary.",
+      "error": null
+    },
+    {
+      "id": "salary_gt_25000_desc",
+      "original_question": "List employees with salary > 25000 ordered by salary descending.",
+      "noisy_question": "List employees with salary > 25000 ordered by salary decsending.",
+      "executed_sql": "SELECT name, dept, title, salary FROM employees WHERE salary > 25000 ORDER BY salary DESC",
+      "agent_rows": [
+        [
+          "Alexander Lewis",
+          40000
+        ],
+        [
+          "Daniel Anderson",
+          38000
+        ],
+        [
+          "Evelyn Rodriguez",
+          35000
+        ],
+        [
+          "John Smith",
+          32000
+        ],
+        [
+          "Benjamin Harris",
+          31000
+        ],
+        [
+          "James Thomas",
+          30000
+        ],
+        [
+          "Henry Clark",
+          29000
+        ],
+        [
+          "Michael Brown",
+          28000
+        ],
+        [
+          "William Jackson",
+          27000
+        ],
+        [
+          "Alice Johnson",
+          26000
+        ],
+        [
+          "Harper Lee",
+          26000
+        ]
+      ],
+      "passed": true,
+      "sql_logs": [
+        "SELECT name, dept, title, salary FROM employees WHERE salary > 25000 ORDER BY salary DESC"
+      ],
+      "agent_output": "Here are the employees with salary > 25000, ordered by salary in descending order:\n\n1. Alexander Lewis (Engineering, Software Architect) - $40,000\n2. Daniel Anderson (Engineering, Tech Lead) - $38,000\n3. Evelyn Rodriguez (Finance, Controller) - $35,000\n4. John Smith (Engineering, ML Engineer) - $32,000\n5. Benjamin Harris (Engineering, DevOps Engineer) - $31,000\n6. James Thomas (Engineering, Data Engineer) - $30,000\n7. Henry Clark (Engineering, Frontend Engineer) - $29,000\n8. Michael Brown (Product, Product Manager) - $28,000\n9. William Jackson (Finance, Financial Analyst) - $27,000\n10. Alice Johnson (Engineering, Backend Engineer) - $26,000\n11. Harper Lee (HR, HR Manager) - $26,000",
+      "error": null
+    },
+    {
+      "id": "count_by_dept",
+      "original_question": "How many employees are in each department?",
+      "noisy_question": "How many employeos are in each department?",
+      "executed_sql": "SELECT dept, COUNT(*) as employee_count FROM employees GROUP BY dept",
+      "agent_rows": [
+        [
+          "Engineering",
+          7
+        ],
+        [
+          "Finance",
+          3
+        ],
+        [
+          "HR",
+          3
+        ],
+        [
+          "Marketing",
+          2
+        ],
+        [
+          "Product",
+          2
+        ],
+        [
+          "Sales",
+          3
+        ]
+      ],
+      "passed": true,
+      "sql_logs": [
+        "SELECT dept, COUNT(*) as employee_count FROM employees GROUP BY dept"
+      ],
+      "agent_output": "There are:\n- 7 employees in the Engineering department\n- 3 employees in the Finance department\n- 3 employees in the HR department\n- 2 employees in the Marketing department\n- 2 employees in the Product department\n- 3 employees in the Sales department",
+      "error": null
+    },
+    {
+      "id": "top2_engineering",
+      "original_question": "Top 2 highest paid people in Engineering (name + salary).",
+      "noisy_question": "Top 2 highest paid peolpe in Engineering (name + salary).",
+      "executed_sql": "SELECT name, salary FROM employees WHERE dept = 'Engineering' ORDER BY salary DESC LIMIT 2",
+      "agent_rows": [
+        [
+          "Alexander Lewis",
+          40000
+        ],
+        [
+          "Daniel Anderson",
+          38000
+        ]
+      ],
+      "passed": true,
+      "sql_logs": [
+        "SELECT name, salary FROM employees WHERE dept = 'Engineering' ORDER BY salary DESC LIMIT 2"
+      ],
+      "agent_output": "The top 2 highest paid people in Engineering are:\n\n- Alexander Lewis with a salary of $40,000\n- Daniel Anderson with a salary of $38,000",
+      "error": null
+    },
+    {
+      "id": "min_salary",
+      "original_question": "Who has the lowest salary?",
+      "noisy_question": "Who has the lowest salary?",
+      "executed_sql": null,
+      "agent_rows": null,
+      "passed": false,
+      "sql_logs": [
+        "SELECT name FROM employees ORDER BY salary ASC LIMIT 1"
+      ],
+      "agent_output": "Olivia Taylor has the lowest salary.",
+      "error": null
+    },
+    {
+      "id": "dept_avg_salary_desc",
+      "original_question": "Show average salary per department, from highest to lowest.",
+      "noisy_question": "Shgw average salary per department, from highest to lowest.",
+      "executed_sql": "SELECT dept, AVG(salary) as avg_salary FROM employees GROUP BY dept ORDER BY avg_salary DESC",
+      "agent_rows": [
+        [
+          "Engineering",
+          32285.714286
+        ],
+        [
+          "Finance",
+          27333.333333
+        ],
+        [
+          "Product",
+          26500.0
+        ],
+        [
+          "Marketing",
+          21500.0
+        ],
+        [
+          "Sales",
+          21000.0
+        ],
+        [
+          "HR",
+          21000.0
+        ]
+      ],
+      "passed": true,
+      "sql_logs": [
+        "SELECT dept, AVG(salary) as avg_salary FROM employees GROUP BY dept ORDER BY avg_salary DESC"
+      ],
+      "agent_output": "The average salary per department, ordered from highest to lowest, is:\n\n- Engineering: $32,285.71\n- Finance: $27,333.33\n- Product: $26,500.00\n- Marketing: $21,500.00\n- Sales: $21,000.00\n- HR: $21,000.00",
+      "error": null
+    },
+    {
+      "id": "marketing_titles",
+      "original_question": "List all job titles in Marketing.",
+      "noisy_question": "List all job titlesgin Marketing.",
+      "executed_sql": "SELECT title FROM employees WHERE dept = 'Marketing'",
+      "agent_rows": [
+        [
+          "Marketing Specialist"
+        ],
+        [
+          "Content Strategist"
+        ]
+      ],
+      "passed": true,
+      "sql_logs": [
+        "SELECT title FROM employees WHERE dept = 'Marketing'"
+      ],
+      "agent_output": "The job titles in the Marketing department are:\n\n- Marketing Specialist\n- Content Strategist",
+      "error": null
+    },
+    {
+      "id": "people_named_ends_with_son",
+      "original_question": "List employees whose name ends with 'son'.",
+      "noisy_question": "List whose employees ends name with 'son'.",
+      "executed_sql": "SELECT name FROM employees WHERE name LIKE '%son';",
+      "agent_rows": [
+        [
+          "Alice Johnson"
+        ],
+        [
+          "David Wilson"
+        ],
+        [
+          "Daniel Anderson"
+        ],
+        [
+          "William Jackson"
+        ],
+        [
+          "Lucas Thompson"
+        ]
+      ],
+      "passed": true,
+      "sql_logs": [
+        "SELECT name FROM employees WHERE name LIKE '%son';"
+      ],
+      "agent_output": "The employees whose names end with 'son' are:\n- Alice Johnson\n- David Wilson\n- Daniel Anderson\n- William Jackson\n- Lucas Thompson",
+      "error": null
+    },
+    {
+      "id": "no_result_edge",
+      "original_question": "List employees with salary > 100000.",
+      "noisy_question": "List employers with salary > 100000.",
+      "executed_sql": "SELECT name, dept, title, salary FROM employees WHERE salary > 100000 ORDER BY salary DESC LIMIT 10",
+      "agent_rows": [],
+      "passed": true,
+      "sql_logs": [
+        "SELECT name, dept, title, salary FROM employees WHERE salary > 100000 ORDER BY salary DESC LIMIT 10"
+      ],
+      "agent_output": "The query executed successfully but returned no results. This means there are no employees in the database with a salary greater than 100,000.\n\nTherefore, the answer is that there are no employers (employees) with a salary greater than 100,000 in the database.",
+      "error": null
+    },
+    {
+      "id": "not_engineering",
+      "original_question": "List employees who do not work in Engineering.",
+      "noisy_question": "Lis temployees who do not work in Engineering.",
+      "executed_sql": "SELECT name, dept, title, salary FROM employees WHERE dept != 'Engineering'",
+      "agent_rows": [
+        [
+          "Michael Brown"
+        ],
+        [
+          "Emily Davis"
+        ],
+        [
+          "David Wilson"
+        ],
+        [
+          "Sophia Martinez"
+        ],
+        [
+          "Olivia Taylor"
+        ],
+        [
+          "Isabella Moore"
+        ],
+        [
+          "William Jackson"
+        ],
+        [
+          "Mia White"
+        ],
+        [
+          "Charlotte Martin"
+        ],
+        [
+          "Lucas Thompson"
+        ],
+        [
+          "Amelia Garcia"
+        ],
+        [
+          "Evelyn Rodriguez"
+        ],
+        [
+          "Harper Lee"
+        ]
+      ],
+      "passed": true,
+      "sql_logs": [
+        "SELECT name, dept, title, salary FROM employees WHERE dept != 'Engineering'"
+      ],
+      "agent_output": "Here are the employees who do not work in Engineering:\n\n1. Michael Brown (Product, Product Manager, $28,000)\n2. Emily Davis (Sales, Sales Manager, $24,000)\n3. David Wilson (HR, HR Business Partner, $18,000)\n4. Sophia Martinez (Finance, Accountant, $20,000)\n5. Olivia Taylor (Sales, Sales Representative, $16,000)\n6. Isabella Moore (Marketing, Marketing Specialist, $22,000)\n7. William Jackson (Finance, Financial Analyst, $27,000)\n8. Mia White (HR, Recruiter, $19,000)\n9. Charlotte Martin (Product, UX Designer, $25,000)\n10. Lucas Thompson (Sales, Account Executive, $23,000)\n11. Amelia Garcia (Marketing, Content Strategist, $21,000)\n12. Evelyn Rodriguez (Finance, Controller, $35,000)\n13. Harper Lee (HR, HR Manager, $26,000)\n\nThese 13 employees work in departments other than Engineering (Product, Sales, HR, Finance, and Marketing).",
+      "error": null
+    },
+    {
+      "id": "engineering_or_high_salary",
+      "original_question": "List employees who work in Engineering or earn more than 35000.",
+      "noisy_question": "List employees who work in Engineering than earn more or 35000.",
+      "executed_sql": null,
+      "agent_rows": null,
+      "passed": false,
+      "sql_logs": [
+        "SELECT name FROM employees WHERE dept = 'Engineering' AND salary >= 35000"
+      ],
+      "agent_output": "The employees who work in Engineering and earn more than or equal to $35,000 are Daniel Anderson and Alexander Lewis.",
+      "error": null
+    },
+    {
+      "id": "dept_above_company_avg",
+      "original_question": "Which departments have an average salary higher than the company average?",
+      "noisy_question": "Which departments have an average salary higher thn the company average?",
+      "executed_sql": "SELECT dept FROM employees GROUP BY dept HAVING AVG(salary) > (SELECT AVG(salary) FROM employees)",
+      "agent_rows": [
+        [
+          "Engineering"
+        ],
+        [
+          "Finance"
+        ]
+      ],
+      "passed": true,
+      "sql_logs": [
+        "SELECT dept FROM employees GROUP BY dept HAVING AVG(salary) > (SELECT AVG(salary) FROM employees)"
+      ],
+      "agent_output": "The departments with an average salary higher than the company average are Engineering and Finance.",
+      "error": null
+    },
+    {
+      "id": "highest_paid_per_dept",
+      "original_question": "List the highest paid employee in each department.",
+      "noisy_question": "List the hgihest paid employee in each department.",
+      "executed_sql": "SELECT name, dept, title, salary FROM (SELECT name, dept, title, salary, ROW_NUMBER() OVER (PARTITION BY dept ORDER BY salary DESC) as rn FROM employees) ranked WHERE rn = 1;",
+      "agent_rows": [
+        [
+          "Alexander Lewis",
+          "Engineering",
+          40000
+        ],
+        [
+          "Evelyn Rodriguez",
+          "Finance",
+          35000
+        ],
+        [
+          "Harper Lee",
+          "HR",
+          26000
+        ],
+        [
+          "Isabella Moore",
+          "Marketing",
+          22000
+        ],
+        [
+          "Michael Brown",
+          "Product",
+          28000
+        ],
+        [
+          "Emily Davis",
+          "Sales",
+          24000
+        ]
+      ],
+      "passed": true,
+      "sql_logs": [
+        "SELECT name, dept, title, salary FROM (SELECT name, dept, title, salary, ROW_NUMBER() OVER (PARTITION BY dept ORDER BY salary DESC) as rn FROM employees) ranked WHERE rn = 1;"
+      ],
+      "agent_output": "The highest-paid employee in each department is:\n\n- **Engineering**: Alexander Lewis, Software Architect, $40,000  \n- **Finance**: Evelyn Rodriguez, Controller, $35,000  \n- **HR**: Harper Lee, HR Manager, $26,000  \n- **Marketing**: Isabella Moore, Marketing Specialist, $22,000  \n- **Product**: Michael Brown, Product Manager, $28,000  \n- **Sales**: Emily Davis, Sales Manager, $24,000",
+      "error": null
+    },
+    {
+      "id": "dept_more_than_two",
+      "original_question": "Which departments have more than two employees?",
+      "noisy_question": "Which departments have mroe than two employees?",
+      "executed_sql": "SELECT dept FROM employees GROUP BY dept HAVING COUNT(*) > 2",
+      "agent_rows": [
+        [
+          "Engineering"
+        ],
+        [
+          "Finance"
+        ],
+        [
+          "HR"
+        ],
+        [
+          "Sales"
+        ]
+      ],
+      "passed": true,
+      "sql_logs": [
+        "SELECT dept FROM employees GROUP BY dept HAVING COUNT(*) > 2"
+      ],
+      "agent_output": "The departments that have more than two employees are: Engineering, Finance, HR, and Sales.",
+      "error": null
+    }
+  ]
+}
